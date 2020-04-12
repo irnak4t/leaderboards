@@ -10,6 +10,46 @@ import (
 
 var sorted map[string]map[string][]models.Record
 
+/*
+	Sort out records slice
+	[
+		0: Record{
+			Title: "title1"
+			Category: "category%"
+			...
+		}
+		1: Record{
+			Title: "title2"
+			Category: "category%"
+			...
+		}
+	]
+
+	to
+
+	[
+		"title1": [
+			"category1": [
+				0: Record{}
+				1: Record{}
+			]
+			"category2": [
+				0: Record{}
+				1: Record{}
+			]
+		]
+		"title2": [
+			"category1": [
+				0: Record{}
+				1: Record{}
+			]
+			"category2": [
+				0: Record{}
+				1: Record{}
+			]
+		]
+	]
+*/
 func TestSortByRecord(t *testing.T) {
 	record1 := models.Record{
 		ID:       1,

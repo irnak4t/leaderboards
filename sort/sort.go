@@ -6,46 +6,6 @@ import (
 	"github.com/irnak4t/leaderboards/models"
 )
 
-/*
-	Sort out records slice
-	[
-		0: Record{
-			Title: "title1"
-			Category: "category%"
-			...
-		}
-		1: Record{
-			Title: "title2"
-			Category: "category%"
-			...
-		}
-	]
-
-	to
-
-	[
-		"title1": [
-			"category1": [
-				0: Record{}
-				1: Record{}
-			]
-			"category2": [
-				0: Record{}
-				1: Record{}
-			]
-		]
-		"title2": [
-			"category1": [
-				0: Record{}
-				1: Record{}
-			]
-			"category2": [
-				0: Record{}
-				1: Record{}
-			]
-		]
-	]
-*/
 func SortByRecord(records []models.Record, sorted *map[string]map[string][]models.Record) {
 	*sorted = make(map[string]map[string][]models.Record)
 
