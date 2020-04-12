@@ -1,0 +1,29 @@
+<html>
+	<body>
+		<h1>{{.runner}}</h1>
+		{{range $title, $categories := .data}}
+			<h2>{{$title}}</h2>
+			{{range $category, $records := $categories}}	
+				<h3>{{$category}}</h3>
+				<table>
+					<tr>
+						<th>Time</th>
+					</tr>
+				{{range $i, $record := $records }}
+					<tr>
+						<td><a href="{{$record.Url}}">{{parseRecord $record.Time}}</a></td>
+						<td><a href="/record/edit/{{$record.ID}}">Edit</a></td>
+						<td>
+							<form action="/record/delete/{{$record.ID}}" method="post">
+								<input type="hidden" name="_method" value="DELETE">
+								<input type="submit" value="Delete">
+							</form>
+						</td>
+					</tr>
+					</a>
+				{{end}}
+				</table>
+			{{end}}
+		{{end}}
+	</body>
+</html>

@@ -1,0 +1,4 @@
+[mysql]
+database = "leaderboards"
+user = "root"
+password = "password"
