@@ -9,7 +9,6 @@ import (
 
 func Open() *gorm.DB {
 	cfg := config.Get()
-
 	args := cfg.Db.User + ":" + cfg.Db.Password + "@/" + cfg.Db.Database + "?parseTime=true"
 	db, err := gorm.Open("mysql", args)
 	errors.FailOnError(err)

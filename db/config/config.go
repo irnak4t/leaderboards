@@ -2,7 +2,6 @@ package config
 
 import (
 	"os"
-	"path/filepath"
 
 	"github.com/BurntSushi/toml"
 	"github.com/irnak4t/leaderboards/errors"
@@ -21,13 +20,8 @@ type DbConfig struct {
 var config Config
 
 func LoadToml() {
-	exe, _ := os.Executable()
-
-	dir := filepath.Dir(exe)
-	if filepath.Base(exe) == "leaderboards" {
-		dir = dir + "/db"
-	}
-	_, err := toml.DecodeFile(dir+"/db.toml", &config)
+	home, err := os.UserConfigDir()
+	_, err = toml.DecodeFile(home+"/lb.db.toml", &config)
 	errors.FailOnError(err)
 }
 
