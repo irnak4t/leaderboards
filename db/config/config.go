@@ -8,10 +8,10 @@ import (
 )
 
 type Config struct {
-	Db DbConfig `toml:"mysql"`
+	MySQL MySQLConfig `toml:"mysql"`
 }
 
-type DbConfig struct {
+type MySQLConfig struct {
 	Database string `toml:"database"`
 	User     string `toml:"user"`
 	Password string `toml:"password"`
@@ -20,12 +20,12 @@ type DbConfig struct {
 var config Config
 
 func LoadToml() {
-	home, err := os.UserConfigDir()
-	_, err = toml.DecodeFile(home+"/lb.db.toml", &config)
+	cfgdir, err := os.UserConfigDir()
+	_, err = toml.DecodeFile(cfgdir+"/lb.db.toml", &config)
 	errors.FailOnError(err)
 }
 
-func Get() Config {
+func GetMySQLConfig() MySQLConfig {
 	LoadToml()
-	return config
+	return config.MySQL
 }
