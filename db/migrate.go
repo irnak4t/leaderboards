@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"github.com/irnak4t/leaderboards/models"
 )
 
-func main() {
+func Migrate() {
 	db := mysql.Open()
 	defer db.Close()
 

@@ -1,23 +1,36 @@
 package main
 
 import (
+	"flag"
 	"html/template"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	c "github.com/irnak4t/leaderboards/controllers"
+	"github.com/irnak4t/leaderboards/db"
 	"github.com/irnak4t/leaderboards/middleware"
 )
 
+var router *gin.Engine
+
 func main() {
-	router := gin.Default()
+	flagCheck()
+	ginInit()
+	ginRouting()
+	router.Run()
+}
+
+func ginInit() {
+	router = gin.Default()
 	router.SetFuncMap(template.FuncMap{
 		"inc":         middleware.Inc,
 		"parseRecord": middleware.ParseRecord,
 	})
 	router.LoadHTMLGlob("templates/*.html")
+}
 
+func ginRouting() {
 	rc := c.RecordController{}
-
 	rg := router.Group("/record")
 	{
 		rg.GET("", rc.Index)
@@ -27,7 +40,13 @@ func main() {
 		rg.POST("/delete/:id", rc.Delete)
 		rg.DELETE("/delete/:id", rc.Delete)
 	}
-
 	router.GET("", rc.Index)
-	router.Run()
+}
+
+func flagCheck() {
+	flag.Parse()
+	if flag.Arg(0) == "migrate" {
+		db.Migrate()
+		os.Exit(0)
+	}
 }
